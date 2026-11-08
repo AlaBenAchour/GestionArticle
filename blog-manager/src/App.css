@@ -1,0 +1,127 @@
+/* Obligatoire en Tailwind v4 pour utiliser @apply dans un autre fichier */
+@reference "./index.css";
+
+@layer components {
+  /* Layout */
+  .app {
+    @apply flex min-h-screen flex-col;
+  }
+  .container-app {
+    @apply mx-auto w-full max-w-6xl px-4;
+  }
+  .section {
+    @apply py-12 md:py-16;
+  }
+
+  /* Navbar */
+  .navbar {
+    @apply sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur
+           dark:border-gray-800 dark:bg-gray-900/90;
+  }
+  .navbar-inner {
+    @apply container-app flex h-16 items-center justify-between;
+  }
+  .nav-link {
+    @apply rounded-md px-3 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900
+           dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white;
+  }
+  .nav-link.active {
+    @apply bg-primary/10 text-primary
+           dark:bg-primary/20 dark:text-primary-light;
+  }
+
+  /* Footer */
+  .footer {
+    @apply border-t border-gray-200 bg-white py-6 text-center text-sm text-gray-500
+           dark:border-gray-800 dark:bg-gray-900 dark:text-gray-400;
+  }
+
+  /* Boutons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary-dark hover:text-white;
+  }
+  .btn-secondary {
+    @apply btn bg-gray-200 text-gray-800 hover:bg-gray-300
+           dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600;
+  }
+  .btn-outline {
+    @apply btn border border-primary text-primary hover:bg-primary hover:text-white
+           dark:border-primary-light dark:text-primary-light dark:hover:bg-primary-light dark:hover:text-gray-900;
+  }
+  .btn-danger {
+    @apply btn bg-danger text-white hover:bg-red-700 hover:text-white;
+  }
+
+  /* Formulaires */
+  .label {
+    @apply mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300;
+  }
+  .input {
+    @apply w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400
+           focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none
+           dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100 dark:placeholder:text-gray-500
+           dark:focus:border-primary-light dark:focus:ring-primary-light/30;
+  }
+  .textarea {
+    @apply input min-h-28 resize-y;
+  }
+  .select {
+    @apply input;
+  }
+
+  /* Card */
+  .card {
+    @apply rounded-xl border border-gray-200 bg-white p-6 shadow-sm
+           dark:border-gray-800 dark:bg-gray-900;
+  }
+  .card-hover {
+    @apply card transition-shadow hover:shadow-md dark:hover:shadow-black/40;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-block rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+  .badge-success { @apply badge bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300; }
+  .badge-danger  { @apply badge bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300; }
+  .badge-warning { @apply badge bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300; }
+  .badge-info    { @apply badge bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300; }
+
+  /* Alert */
+  .alert {
+    @apply rounded-lg border px-4 py-3 text-sm;
+  }
+  .alert-success {
+    @apply alert border-green-200 bg-green-50 text-green-800
+           dark:border-green-800 dark:bg-green-950 dark:text-green-300;
+  }
+  .alert-danger {
+    @apply alert border-red-200 bg-red-50 text-red-800
+           dark:border-red-800 dark:bg-red-950 dark:text-red-300;
+  }
+
+  /* Tableau */
+  .table {
+    @apply w-full text-left text-sm;
+  }
+  .table th {
+    @apply border-b border-gray-200 bg-gray-50 px-4 py-3 font-semibold text-gray-700
+           dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200;
+  }
+  .table td {
+    @apply border-b border-gray-100 px-4 py-3
+           dark:border-gray-800;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 dark:bg-black/70;
+  }
+  .modal {
+    @apply w-full max-w-md rounded-xl bg-white p-6 shadow-xl
+           dark:bg-gray-900 dark:ring-1 dark:ring-gray-800;
+  }
+}
