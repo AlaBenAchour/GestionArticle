@@ -32,7 +32,12 @@ export default function Header() {
             Articles
           </NavLink>
 
-          <Button to="/articles/new" size="sm" variant="danger" className="ml-1 sm:px-4 sm:py-2 sm:text-sm">
+          <Button
+            to="/articles/new"
+            size="sm"
+            variant="danger"
+            className="ml-1 sm:px-4 sm:py-2 sm:text-sm"
+          >
             <span className="sm:hidden" aria-hidden="true">+</span>
             <span className="sr-only sm:not-sr-only">Créer un article</span>
           </Button>

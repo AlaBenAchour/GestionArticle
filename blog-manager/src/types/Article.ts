@@ -4,7 +4,7 @@ export type Article = {
   content: string;
   author: string;
   category: string;
-  publishedAt: string; // YYYY-MM-DD
+  publishedAt: string;
   image: string | null; // image en base64 (data URL)
   createdAt: string;
 };

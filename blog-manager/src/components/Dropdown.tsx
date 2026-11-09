@@ -21,6 +21,7 @@ type Props = SelectHTMLAttributes<HTMLSelectElement> & {
   placeholder?: string;
   error?: string;
   hint?: string;
+  wrapperClassName?: string; // marge du conteneur (mb-4 par défaut)
 };
 
 export default function Dropdown({
@@ -30,6 +31,7 @@ export default function Dropdown({
   error,
   hint,
   className = "",
+  wrapperClassName = "mb-4",
   id,
   required,
   ...rest
@@ -39,7 +41,7 @@ export default function Dropdown({
   const messageId = `${selectId}-msg`;
 
   return (
-    <div className="mb-4">
+    <div className={wrapperClassName}>
       {label && (
         <label htmlFor={selectId} className={labelClass}>
           {label}

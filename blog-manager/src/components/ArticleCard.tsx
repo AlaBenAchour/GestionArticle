@@ -32,7 +32,7 @@ export default function ArticleCard({ article, onEdit, onDelete }: Props) {
           <h3 className="mt-2">
             <Link
               to={detailsUrl}
-              className="text-gray-900 hover:text-primary dark:text-white dark:hover:text-primary-light"
+              className="text-gray-900 hover:text-danger dark:text-white dark:hover:text-danger-light"
             >
               {article.title}
             </Link>
@@ -45,7 +45,7 @@ export default function ArticleCard({ article, onEdit, onDelete }: Props) {
           </Link>
 
           <p className="mb-0 mt-3 text-xs text-gray-500 dark:text-gray-400">
-            {article.author} · {formatDate(article.publishedAt)}
+            {article.author} - {formatDate(article.publishedAt)}
           </p>
         </div>
 

@@ -13,6 +13,7 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
   error?: string;
   hint?: string;
+  wrapperClassName?: string;
 };
 
 export default function Input({
@@ -20,6 +21,7 @@ export default function Input({
   error,
   hint,
   className = "",
+  wrapperClassName = "mb-4",
   id,
   required,
   ...rest
@@ -29,7 +31,7 @@ export default function Input({
   const messageId = `${inputId}-msg`;
 
   return (
-    <div className="mb-4">
+    <div className={wrapperClassName}>
       {label && (
         <label htmlFor={inputId} className={labelClass}>
           {label}

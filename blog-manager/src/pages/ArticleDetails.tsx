@@ -5,10 +5,10 @@ import { categoryLabel } from "../types/options";
 import { formatDate } from "../utils/formatDate";
 import Button from "../components/Button";
 import EditArticleModal from "../components/EditArticleModal";
-import DeleteArticleDialog from "../components/DeleteArticleDialog";
+import ConfirmDialog from "../components/ConfirmDialog";
 
 export default function ArticleDetail() {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>(); // recuper les parametre de URL
   const navigate = useNavigate();
   const { articles, updateArticle, deleteArticle } = useArticles();
   const [editing, setEditing] = useState(false);
@@ -25,7 +25,7 @@ export default function ArticleDetail() {
       </div>
     );
   }
-
+// calcule le temps de lecture
   const readingTime = Math.max(
     1,
     Math.round(article.content.split(/\s+/).length / 200)
@@ -54,8 +54,13 @@ export default function ArticleDetail() {
 
       <h1 className="mt-3">{article.title}</h1>
 
+      {/* Auteur affiché seulement s'il existe */}
       <p className="text-sm text-gray-500 dark:text-gray-400">
-        Par <strong className="font-semibold">{article.author}</strong> ·{" "}
+        {article.author && (
+          <>
+            Par <strong className="font-semibold">{article.author}</strong> ·{" "}
+          </>
+        )}
         {formatDate(article.publishedAt)} · {readingTime} min de lecture
       </p>
 
@@ -75,6 +80,7 @@ export default function ArticleDetail() {
         </Button>
       </div>
 
+      {/* Modal d'édition */}
       {editing && (
         <EditArticleModal
           article={article}
@@ -83,9 +89,24 @@ export default function ArticleDetail() {
         />
       )}
 
+      {/* Confirmation de suppression */}
       {deleting && (
-        <DeleteArticleDialog
-          article={article}
+        <ConfirmDialog
+          title="Supprimer cet article ?"
+          message={
+            <>
+              <p>
+                Tu es sur le point de supprimer{" "}
+                <strong className="text-gray-900 dark:text-white">
+                  « {article.title} »
+                </strong>
+                .
+              </p>
+              <p className="mb-0 text-danger dark:text-red-400">
+                Cette action est irréversible.
+              </p>
+            </>
+          }
           onConfirm={handleDelete}
           onCancel={() => setDeleting(false)}
         />

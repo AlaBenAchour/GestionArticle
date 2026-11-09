@@ -11,7 +11,7 @@ import { fileToDataUrl } from "../hooks/useArticles";
 import { categories, authors, withCurrent } from "../types/options";
 
 type Props = {
-  article?: Article; // fourni = édition
+  article?: Article;
   layout?: "split" | "stacked"; // split : page, stacked : modal
   submitLabel?: string;
   onSubmit: (article: Article) => boolean; // false si le stockage est plein
@@ -29,7 +29,7 @@ export default function ArticleForm({
 }: Props) {
   const [title, setTitle] = useState(article?.title ?? "");
   const [content, setContent] = useState(article?.content ?? "");
-  const [author, setAuthor] = useState(article?.author ?? "");
+  const [author, setAuthor] = useState(article?.author ?? ""); // "" = aucun auteur
   const [category, setCategory] = useState(article?.category ?? "");
   const [date, setDate] = useState(article?.publishedAt ?? today);
   // undefined = image inchangée, File = nouvelle image, null = image retirée
@@ -38,16 +38,15 @@ export default function ArticleForm({
   const [saving, setSaving] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); // empêcher le rechargement de la page
 
     const hasImage =
-      image instanceof File || (image === undefined && !!article?.image);
+      image instanceof File || (image === undefined && !!article?.image); // transforme une valeur en booleen
 
-    const next: Record<string, string> = {};
+    const next: Record<string, string> = {}; // crée un objet vide qui va recevoir les erreurs détectées.
     if (!title.trim()) next.title = "Le titre est obligatoire.";
     if (content.trim().length < 20)
       next.content = "Le contenu doit faire au moins 20 caractères.";
-    if (!author) next.author = "Choisis un auteur.";
     if (!category) next.category = "Choisis une catégorie.";
     if (!date) next.date = "Choisis une date.";
     if (!hasImage) next.image = "Ajoute une image de couverture.";
@@ -55,14 +54,14 @@ export default function ArticleForm({
     if (Object.keys(next).length > 0) return;
 
     setSaving(true);
-    try {
+    try { // convertir l'image
       let finalImage: string | null;
       if (image instanceof File) finalImage = await fileToDataUrl(image);
       else if (image === undefined) finalImage = article?.image ?? null;
       else finalImage = null;
 
       const ok = onSubmit({
-        id: article?.id ?? crypto.randomUUID(),
+        id: article?.id ?? crypto.randomUUID(), // crier un identifient unique
         createdAt: article?.createdAt ?? new Date().toISOString(),
         title: title.trim(),
         content: content.trim(),
@@ -84,14 +83,12 @@ export default function ArticleForm({
     }
   };
 
-  /* ---------- Champs ---------- */
-
   const titleField = (
     <Input
       label="Titre"
       placeholder="Mon premier article"
       value={title}
-      onChange={(e) => setTitle(e.target.value)}
+      onChange={(e) => setTitle(e.target.value)} // stocker se que utilisateur ecrie
       error={errors.title}
       required
     />
@@ -124,12 +121,13 @@ export default function ArticleForm({
   const authorField = (
     <Dropdown
       label="Auteur"
-      placeholder="Choisir un auteur"
-      options={withCurrent(authors, article?.author)}
+      // hint="Optionnel."
+      options={[
+        { value: "", label: "Aucun auteur" },
+        ...withCurrent(authors, article?.author),
+      ]}
       value={author}
       onChange={(e) => setAuthor(e.target.value)}
-      error={errors.author}
-      required
     />
   );
 
@@ -156,7 +154,6 @@ export default function ArticleForm({
     />
   );
 
-  /* ---------- Mise en page ---------- */
 
   if (layout === "split") {
     return (

@@ -46,7 +46,7 @@ export function fileToDataUrl(
       canvas.width = Math.round(img.width * scale);
       canvas.height = Math.round(img.height * scale);
       canvas.getContext("2d")!.drawImage(img, 0, 0, canvas.width, canvas.height);
-      URL.revokeObjectURL(url);
+      URL.revokeObjectURL(url); // supprimer l'URL temporaire
       resolve(canvas.toDataURL("image/webp", quality));
     };
 
