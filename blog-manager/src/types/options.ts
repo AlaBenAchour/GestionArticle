@@ -1,9 +1,10 @@
 export type Option = { value: string; label: string };
 
 export const categories: Option[] = [
-  { value: "react", label: "React" },
-  { value: "tailwind", label: "Tailwind CSS" },
-  { value: "typescript", label: "TypeScript" },
+  { value: "patisserie", label: "Pâtisserie" },
+  { value: "Venoisserie", label: "Venoisserie" },
+  { value: "chocolat", label: "Chocolat" },
+  { value: "sandwich", label: "Sandwich" },
 ];
 
 export const authors: Option[] = [
